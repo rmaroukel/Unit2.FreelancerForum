@@ -1,3 +1,5 @@
+
+// Create freelancers object
 const freelancers = [
     { name: "Dr. Slice", price: 25, occupation: "gardener" },
     { name: "Dr. Pressure", price: 51, occupation: "programmer" },
@@ -19,6 +21,8 @@ let accumulatedPrices = []
 // Create an index counter to keep track of current posting
 let currentIndex = 0;
 
+// Call the create freelancer function every 2 seconds
+const addFreelancerInterval = setInterval(addFreelancerSequentially, 2000);
 
 // Create a formula to calculate the average starting price of all freelancers
 function avgStartPrice(arr) {
@@ -54,20 +58,22 @@ function addFreelancerSequentially() {
     }
 }
 
-const addFreelancerInterval = setInterval(addFreelancerSequentially, 2000);
-
 function addFreelancer(freelancer) {
+    // Get the table element
     const table = document.getElementById('postings');
+    // Create a new row element
     const newRow = document.createElement('tr');
+    // Get the average starting price element
     const startingPriceText = document.getElementById('average-price')
-    
+    // Calculate the average starting price
     averageStartingPrice = avgStartPrice(accumulatedPrices)
-
+    // Update the average starting price element
     startingPriceText.innerText = `The average starting price is ${averageStartingPrice}`
-    
-    // Create and append the name cell
+    // Create the name cell
     const nameCell = document.createElement('td');
+    // Update the name cell with freelancer name in all caps
     nameCell.textContent = freelancer.name.toUpperCase();
+    // Append the name cell to the new row
     newRow.appendChild(nameCell);
     
     // Create and append the occupation cell
@@ -80,5 +86,6 @@ function addFreelancer(freelancer) {
     priceCell.textContent = freelancer.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     newRow.appendChild(priceCell);
     
+    // Append the new row to the table
     table.appendChild(newRow);
 }
